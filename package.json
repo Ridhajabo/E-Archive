@@ -1,0 +1,21 @@
+{
+  "name": "e-archive-pro",
+  "version": "0.1.0",
+  "description": "منصة الإدارة الإلكترونية للأرشيف المؤسسي - Local full stack MVP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "archive",
+    "records-management",
+    "arabic",
+    "rtl"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

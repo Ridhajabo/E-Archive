@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "appName": "E-Archive Pro",
+    "createdAt": "2026-05-10T00:00:00.000Z",
+    "updatedAt": "2026-05-10T00:00:00.000Z"
+  },
+  "sessions": [],
+  "users": [],
+  "departments": [],
+  "versements": [],
+  "boxes": [],
+  "folders": [],
+  "documents": [],
+  "consultations": [],
+  "borrowings": [],
+  "retentionSchedules": [],
+  "locations": [],
+  "notifications": [],
+  "storageConfig": {
+    "mode": "local",
+    "localBackupDir": "data/backups",
+    "googleDriveEmail": "",
+    "googleDriveFolderId": "",
+    "notes": "Example local database shape. The real data/db.json is intentionally ignored.",
+    "updatedAt": "2026-05-10T00:00:00.000Z"
+  },
+  "auditLogs": []
+}
