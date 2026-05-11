@@ -4,3 +4,5 @@ data/backups/
 uploads/
 .env
 *.log
+dist/
+*.zip

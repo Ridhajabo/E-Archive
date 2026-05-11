@@ -9,7 +9,8 @@ if (!username || !password || password.length < 8) {
   process.exit(1);
 }
 
-const dataFile = path.join(__dirname, "..", "data", "db.json");
+const dataDir = path.resolve(process.env.EARCHIVE_DATA_DIR || path.join(__dirname, "..", "data"));
+const dataFile = path.join(dataDir, "db.json");
 const db = JSON.parse(fs.readFileSync(dataFile, "utf8"));
 const user = (db.users || []).find(item => item.username === username);
 

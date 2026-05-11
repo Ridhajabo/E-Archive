@@ -8,10 +8,10 @@ const os = require("os");
 const PORT = Number(process.env.PORT || 3000);
 const ROOT = __dirname;
 const PUBLIC_DIR = path.join(ROOT, "public");
-const DATA_DIR = path.join(ROOT, "data");
+const DATA_DIR = path.resolve(process.env.EARCHIVE_DATA_DIR || path.join(ROOT, "data"));
 const DATA_FILE = path.join(DATA_DIR, "db.json");
-const BACKUP_DIR = path.join(DATA_DIR, "backups");
-const UPLOAD_DIR = path.join(ROOT, "uploads");
+const BACKUP_DIR = path.resolve(process.env.EARCHIVE_BACKUP_DIR || path.join(DATA_DIR, "backups"));
+const UPLOAD_DIR = path.resolve(process.env.EARCHIVE_UPLOADS_DIR || path.join(ROOT, "uploads"));
 
 const collections = new Set([
   "departments",
@@ -43,6 +43,11 @@ function ensureDirs() {
   fs.mkdirSync(BACKUP_DIR, { recursive: true });
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
   fs.mkdirSync(PUBLIC_DIR, { recursive: true });
+}
+
+function isInsidePath(basePath, targetPath) {
+  const relative = path.relative(basePath, targetPath);
+  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
 }
 
 function now() {
@@ -1036,7 +1041,7 @@ function serveStatic(req, res) {
   if (pathname === "/") pathname = "/index.html";
   const fullPath = path.normalize(path.join(PUBLIC_DIR, pathname));
 
-  if (!fullPath.startsWith(PUBLIC_DIR)) {
+  if (!isInsidePath(PUBLIC_DIR, fullPath)) {
     send(res, 403, "Forbidden");
     return;
   }
@@ -1457,7 +1462,7 @@ function serveUpload(req, res) {
   const parsed = url.parse(req.url);
   const fileName = decodeURIComponent(parsed.pathname.replace(/^\/uploads\//, ""));
   const fullPath = path.normalize(path.join(UPLOAD_DIR, fileName));
-  if (!fullPath.startsWith(UPLOAD_DIR)) {
+  if (!isInsidePath(UPLOAD_DIR, fullPath)) {
     send(res, 403, "Forbidden");
     return;
   }
@@ -1499,6 +1504,9 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`E-Archive Pro is running on http://localhost:${PORT}`);
+  console.log(`Data directory: ${DATA_DIR}`);
+  console.log(`Uploads directory: ${UPLOAD_DIR}`);
+  console.log(`Backups directory: ${BACKUP_DIR}`);
   console.log("Default accounts:");
   console.log("  admin / admin123");
   console.log("  archivist / archive123");
