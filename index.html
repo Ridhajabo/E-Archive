@@ -1,0 +1,1329 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>E-Archive Pro | صفحة GitHub Pages</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #eef3f7;
+        --panel: #ffffff;
+        --panel-soft: #f7fafc;
+        --ink: #142333;
+        --muted: #627386;
+        --line: #d7e1ea;
+        --primary: #146c94;
+        --primary-strong: #0c4e6e;
+        --accent: #2f7d5b;
+        --coral: #d85d52;
+        --amber: #b97833;
+        --violet: #6c5aa7;
+        --shadow: 0 18px 45px rgba(20, 35, 51, 0.11);
+        --radius: 8px;
+        --font: Tahoma, "Segoe UI", Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          linear-gradient(180deg, rgba(20, 108, 148, 0.08), transparent 330px),
+          var(--bg);
+        color: var(--ink);
+        font-family: var(--font);
+        letter-spacing: 0;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 274px minmax(0, 1fr);
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        background: #20384f;
+        color: #f6fbff;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .brand {
+        padding: 24px 20px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .brand-mark {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        display: grid;
+        place-items: center;
+        background: var(--coral);
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-size: 22px;
+      }
+
+      .brand p {
+        margin: 7px 0 0;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .nav {
+        padding: 12px 0;
+        display: grid;
+        gap: 3px;
+      }
+
+      .nav a {
+        min-height: 42px;
+        display: grid;
+        grid-template-columns: 28px 1fr;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.86);
+        padding: 0 20px;
+        border-right: 4px solid transparent;
+      }
+
+      .nav a:hover,
+      .nav a.active {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.09);
+        border-right-color: var(--coral);
+      }
+
+      .sidebar-foot {
+        margin-top: auto;
+        padding: 18px 20px 24px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .version {
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.09);
+        color: #dff7ee;
+        border-radius: var(--radius);
+        padding: 10px 12px;
+        font-size: 12px;
+        line-height: 1.7;
+      }
+
+      .main {
+        min-width: 0;
+      }
+
+      .topbar {
+        min-height: 68px;
+        padding: 0 28px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: rgba(255, 255, 255, 0.9);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+
+      .topbar h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .topbar-spacer {
+        flex: 1;
+      }
+
+      .button,
+      .icon-button {
+        min-height: 40px;
+        border-radius: 7px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid transparent;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .button {
+        padding: 0 15px;
+      }
+
+      .icon-button {
+        width: 40px;
+        padding: 0;
+      }
+
+      .button.primary {
+        color: #fff;
+        background: var(--primary);
+      }
+
+      .button.primary:hover {
+        background: var(--primary-strong);
+      }
+
+      .button.secondary,
+      .icon-button {
+        color: var(--ink);
+        background: var(--panel);
+        border-color: var(--line);
+      }
+
+      .content {
+        padding: 24px;
+        display: grid;
+        gap: 22px;
+      }
+
+      .hero {
+        min-height: calc(100vh - 116px);
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      .hero-copy {
+        display: grid;
+        align-content: center;
+        gap: 18px;
+        padding: 18px 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        width: max-content;
+        min-height: 30px;
+        align-items: center;
+        border: 1px solid rgba(47, 125, 91, 0.26);
+        background: rgba(47, 125, 91, 0.1);
+        color: var(--accent);
+        border-radius: 999px;
+        padding: 0 11px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .hero h2 {
+        margin: 0;
+        font-size: clamp(34px, 5vw, 58px);
+        line-height: 1.18;
+        max-width: 820px;
+      }
+
+      .hero p {
+        margin: 0;
+        max-width: 680px;
+        color: var(--muted);
+        line-height: 1.9;
+        font-size: 16px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        max-width: 700px;
+      }
+
+      .stat,
+      .panel,
+      .sample-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: 0 10px 28px rgba(20, 35, 51, 0.07);
+      }
+
+      .stat {
+        min-height: 102px;
+        padding: 14px;
+        display: grid;
+        align-content: space-between;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .stat strong {
+        font-size: 27px;
+      }
+
+      .visual-panel {
+        align-self: center;
+        min-height: 560px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        display: grid;
+        grid-template-rows: auto 1fr;
+      }
+
+      .visual-toolbar {
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 16px;
+        border-bottom: 1px solid var(--line);
+        background: var(--panel-soft);
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--coral);
+      }
+
+      .dot:nth-child(2) {
+        background: var(--amber);
+      }
+
+      .dot:nth-child(3) {
+        background: var(--accent);
+      }
+
+      .visual-body {
+        display: grid;
+        grid-template-columns: minmax(210px, 0.76fr) minmax(260px, 1fr);
+        gap: 0;
+        min-height: 0;
+      }
+
+      .rack {
+        background: #eef4f8;
+        border-left: 1px solid var(--line);
+        padding: 18px;
+        display: grid;
+        gap: 14px;
+        align-content: start;
+      }
+
+      .box-art {
+        min-height: 126px;
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--radius);
+        padding: 42px 14px 14px;
+        color: #fff;
+        background: linear-gradient(180deg, #d9a75f 0 22%, #a96727 22% 100%);
+        box-shadow: 0 14px 24px rgba(110, 72, 28, 0.18);
+      }
+
+      .box-art::before {
+        content: "";
+        position: absolute;
+        inset: 42px 18px auto 18px;
+        height: 30px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.86);
+      }
+
+      .box-art::after {
+        content: "";
+        position: absolute;
+        left: 20px;
+        bottom: 18px;
+        width: 34px;
+        height: 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+      }
+
+      .box-art strong,
+      .box-art span {
+        position: relative;
+        z-index: 1;
+        display: block;
+      }
+
+      .box-art strong {
+        font-size: 23px;
+      }
+
+      .box-art span {
+        margin-top: 6px;
+        font-size: 12px;
+        opacity: 0.92;
+      }
+
+      .screen {
+        padding: 18px;
+        display: grid;
+        gap: 14px;
+        align-content: start;
+      }
+
+      .screen-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .screen-title {
+        display: grid;
+        gap: 4px;
+      }
+
+      .screen-title strong {
+        font-size: 16px;
+      }
+
+      .screen-title span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .mini-card {
+        min-height: 84px;
+        padding: 12px;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: var(--panel-soft);
+        display: grid;
+        align-content: space-between;
+      }
+
+      .mini-card span {
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .mini-card strong {
+        font-size: 22px;
+      }
+
+      .preview-table {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .preview-row {
+        min-height: 48px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .preview-row:last-child {
+        border-bottom: 0;
+      }
+
+      .preview-row span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .badge {
+        display: inline-flex;
+        min-height: 26px;
+        align-items: center;
+        border-radius: 999px;
+        padding: 0 10px;
+        background: rgba(20, 108, 148, 0.12);
+        color: var(--primary-strong);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .badge.green {
+        background: rgba(47, 125, 91, 0.13);
+        color: var(--accent);
+      }
+
+      .badge.violet {
+        background: rgba(108, 90, 167, 0.13);
+        color: var(--violet);
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      .panel-header h2,
+      .panel-header h3 {
+        margin: 0;
+        font-size: 19px;
+      }
+
+      .panel-header p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+      }
+
+      .tool-grid {
+        display: grid;
+        grid-template-columns: minmax(280px, 0.92fr) minmax(340px, 1.08fr);
+        gap: 18px;
+        align-items: start;
+      }
+
+      .filters {
+        display: grid;
+        grid-template-columns: minmax(160px, 1fr) minmax(140px, 0.6fr);
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .field {
+        display: grid;
+        gap: 7px;
+      }
+
+      .field label {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .field input,
+      .field select {
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--panel);
+        color: var(--ink);
+        padding: 0 12px;
+        outline: none;
+      }
+
+      .field input:focus,
+      .field select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(20, 108, 148, 0.12);
+      }
+
+      .result-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .sample-card {
+        width: 100%;
+        text-align: right;
+        padding: 13px;
+        display: grid;
+        gap: 8px;
+        border-color: var(--line);
+        background: var(--panel);
+      }
+
+      .sample-card:hover,
+      .sample-card.active {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(20, 108, 148, 0.11);
+      }
+
+      .sample-card strong {
+        font-size: 15px;
+      }
+
+      .sample-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 13px;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .tag {
+        border-radius: 999px;
+        background: var(--panel-soft);
+        border: 1px solid var(--line);
+        color: var(--muted);
+        padding: 4px 8px;
+        font-size: 11px;
+      }
+
+      .details {
+        display: grid;
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 16px;
+      }
+
+      .qr-card {
+        border: 1px solid var(--line);
+        background: var(--panel-soft);
+        border-radius: var(--radius);
+        padding: 14px;
+        display: grid;
+        gap: 12px;
+        justify-items: center;
+        align-content: start;
+      }
+
+      .qr-card img {
+        width: 100%;
+        max-width: 190px;
+        aspect-ratio: 1;
+        object-fit: contain;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 8px;
+      }
+
+      .qr-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .meta-item {
+        min-height: 72px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel-soft);
+        padding: 10px;
+        display: grid;
+        align-content: space-between;
+      }
+
+      .meta-item span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .meta-item strong {
+        font-size: 15px;
+      }
+
+      .doc-list {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+
+      .doc-row {
+        min-height: 48px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--line);
+        background: var(--panel);
+      }
+
+      .doc-row:last-child {
+        border-bottom: 0;
+      }
+
+      .doc-row span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .code-panel {
+        background: #111b25;
+        color: #edf7ff;
+        border-radius: var(--radius);
+        padding: 16px;
+        direction: ltr;
+        text-align: left;
+        overflow: auto;
+        font-family: Consolas, "Courier New", monospace;
+        line-height: 1.8;
+      }
+
+      .roadmap {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .roadmap .panel {
+        min-height: 154px;
+        box-shadow: none;
+      }
+
+      .roadmap h3 {
+        margin: 0 0 9px;
+        font-size: 15px;
+      }
+
+      .roadmap p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.75;
+        font-size: 13px;
+      }
+
+      .toast {
+        position: fixed;
+        left: 22px;
+        bottom: 22px;
+        max-width: min(340px, calc(100vw - 44px));
+        background: var(--ink);
+        color: #fff;
+        border-radius: 7px;
+        padding: 12px 14px;
+        box-shadow: var(--shadow);
+        opacity: 0;
+        transform: translateY(12px);
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+        z-index: 30;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .print-label {
+        display: none;
+      }
+
+      @media (max-width: 1160px) {
+        .hero,
+        .tool-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .visual-panel {
+          min-height: 500px;
+        }
+
+        .roadmap {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 900px) {
+        .shell {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+          height: auto;
+        }
+
+        .nav {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          padding: 10px;
+        }
+
+        .nav a {
+          border-right: 0;
+          border-radius: 7px;
+        }
+
+        .sidebar-foot {
+          display: none;
+        }
+
+        .topbar {
+          top: 0;
+          padding: 10px 16px;
+          flex-wrap: wrap;
+        }
+
+        .content {
+          padding: 16px;
+        }
+
+        .details,
+        .visual-body {
+          grid-template-columns: 1fr;
+        }
+
+        .rack {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          border-left: 0;
+          border-bottom: 1px solid var(--line);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero h2 {
+          font-size: 32px;
+        }
+
+        .stats,
+        .filters,
+        .meta-grid,
+        .roadmap,
+        .rack,
+        .mini-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .button {
+          width: 100%;
+        }
+
+        .topbar .button {
+          width: auto;
+        }
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+
+        .shell,
+        .toast {
+          display: none;
+        }
+
+        .print-label {
+          display: block;
+          width: 92mm;
+          min-height: 58mm;
+          margin: 0;
+          padding: 8mm;
+          border: 1px solid #111;
+          color: #111;
+          font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .print-label h1 {
+          margin: 0 0 4mm;
+          font-size: 16pt;
+        }
+
+        .print-label .label-grid {
+          display: grid;
+          grid-template-columns: 30mm 1fr;
+          gap: 5mm;
+          align-items: start;
+        }
+
+        .print-label img {
+          width: 30mm;
+          height: 30mm;
+        }
+
+        .print-label p {
+          margin: 0 0 2mm;
+          font-size: 9pt;
+          line-height: 1.45;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar" aria-label="القائمة الرئيسية">
+        <div class="brand">
+          <div class="brand-mark">EA</div>
+          <h1>E-Archive Pro</h1>
+          <p>واجهة ثابتة للنشر عبر GitHub Pages مع تجربة بحث و QR للعلب الأرشيفية.</p>
+        </div>
+        <nav class="nav">
+          <a class="active" href="#dashboard"><span>01</span><strong>لوحة التحكم</strong></a>
+          <a href="#search"><span>02</span><strong>البحث والفهرسة</strong></a>
+          <a href="#qr"><span>03</span><strong>ملصق QR</strong></a>
+          <a href="#run"><span>04</span><strong>التشغيل المحلي</strong></a>
+        </nav>
+        <div class="sidebar-foot">
+          <div class="version">GitHub Pages Static Preview<br />Branch: main / Folder: root</div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <h2>منصة الأرشيف الإلكتروني</h2>
+          <div class="topbar-spacer"></div>
+          <a class="button secondary" href="https://github.com/Ridhajabo/E-Archive" target="_blank" rel="noreferrer">المستودع</a>
+          <a class="button primary" href="#search">تجربة البحث</a>
+        </header>
+
+        <div class="content">
+          <section class="hero" id="dashboard">
+            <div class="hero-copy">
+              <span class="eyebrow">نسخة عرض تعمل مباشرة من GitHub Pages</span>
+              <h2>E-Archive Pro لإدارة الأرشيف الورقي والرقمي</h2>
+              <p>
+                صفحة ويب جاهزة لعرض فكرة المشروع: علب، ملفات، وثائق، بحث داخلي، كلمات مفتاحية،
+                وملصق QR يعرض محتويات العلبة عند مسحه بالهاتف.
+              </p>
+              <div class="hero-actions">
+                <a class="button primary" href="#search">افتح التجربة</a>
+                <a class="button secondary" href="#run">تشغيل النسخة الكاملة</a>
+              </div>
+              <div class="stats" aria-label="إحصائيات تجريبية">
+                <div class="stat"><span>علب أرشيفية</span><strong id="statBoxes">0</strong></div>
+                <div class="stat"><span>ملفات مفهرسة</span><strong id="statFiles">0</strong></div>
+                <div class="stat"><span>وثائق رقمية</span><strong id="statDocs">0</strong></div>
+              </div>
+            </div>
+
+            <div class="visual-panel" aria-label="معاينة لوحة التحكم">
+              <div class="visual-toolbar">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <strong>Archive Console</strong>
+              </div>
+              <div class="visual-body">
+                <div class="rack">
+                  <div class="box-art"><strong>BX-2026-01</strong><span>المالية، رف A-03</span></div>
+                  <div class="box-art"><strong>BX-2026-02</strong><span>الموارد البشرية، رف B-11</span></div>
+                  <div class="box-art"><strong>BX-2026-03</strong><span>الصفقات، رف C-05</span></div>
+                </div>
+                <div class="screen">
+                  <div class="screen-header">
+                    <div class="screen-title">
+                      <strong>مؤشر الفهرسة</strong>
+                      <span>تكشيف حسب العنوان، المصلحة، الكلمات المفتاحية والمكانز</span>
+                    </div>
+                    <span class="badge green">نشط</span>
+                  </div>
+                  <div class="mini-grid">
+                    <div class="mini-card"><span>نتائج سريعة</span><strong>12</strong></div>
+                    <div class="mini-card"><span>مصطلحات</span><strong>34</strong></div>
+                    <div class="mini-card"><span>QR جاهز</span><strong>3</strong></div>
+                  </div>
+                  <div class="preview-table">
+                    <div class="preview-row"><strong>محاضر الاجتماعات 2025</strong><span>أمانة عامة</span></div>
+                    <div class="preview-row"><strong>ملفات الرواتب</strong><span>مالية</span></div>
+                    <div class="preview-row"><strong>صفقات التجهيز</strong><span>مشتريات</span></div>
+                    <div class="preview-row"><strong>ملفات الموظفين</strong><span>موارد بشرية</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="search">
+            <div class="panel-header">
+              <div>
+                <h2>البحث والفهرسة</h2>
+                <p>جرّب البحث في عينة أرشيفية ثابتة كما ستظهر في النسخة الكاملة.</p>
+              </div>
+              <span class="badge violet" id="resultCount">0 نتيجة</span>
+            </div>
+            <div class="tool-grid">
+              <div>
+                <div class="filters">
+                  <div class="field">
+                    <label for="query">كلمة البحث</label>
+                    <input id="query" type="search" placeholder="مثال: رواتب، صفقات، موظفين" autocomplete="off" />
+                  </div>
+                  <div class="field">
+                    <label for="department">المصلحة</label>
+                    <select id="department">
+                      <option value="">كل المصالح</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="result-list" id="results"></div>
+              </div>
+
+              <div class="panel" id="qr">
+                <div class="panel-header">
+                  <div>
+                    <h3>محتويات العلبة</h3>
+                    <p>اختر علبة من النتائج لتحديث بيانات QR والملصق.</p>
+                  </div>
+                </div>
+                <div class="details">
+                  <div class="qr-card">
+                    <img id="qrImage" alt="QR Code لمحتويات العلبة" />
+                    <div class="qr-actions">
+                      <button class="button primary" id="printBtn" type="button">طباعة الملصق</button>
+                      <button class="button secondary" id="copyBtn" type="button">نسخ بيانات QR</button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="meta-grid">
+                      <div class="meta-item"><span>رمز العلبة</span><strong id="boxCode"></strong></div>
+                      <div class="meta-item"><span>الموقع</span><strong id="boxLocation"></strong></div>
+                      <div class="meta-item"><span>المصلحة</span><strong id="boxDepartment"></strong></div>
+                      <div class="meta-item"><span>مدة الحفظ</span><strong id="boxRetention"></strong></div>
+                    </div>
+                    <div class="doc-list" id="docList"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="run">
+            <div class="panel-header">
+              <div>
+                <h2>تشغيل النسخة الكاملة</h2>
+                <p>هذه الصفحة ثابتة للنشر العام. التطبيق الكامل يعمل محليا عبر Node.js وملفات API.</p>
+              </div>
+              <a class="button secondary" href="https://github.com/Ridhajabo/E-Archive/archive/refs/heads/main.zip">تنزيل ZIP</a>
+            </div>
+            <pre class="code-panel"><code>git clone https://github.com/Ridhajabo/E-Archive.git
+cd E-Archive
+npm start
+
+http://localhost:3000</code></pre>
+          </section>
+
+          <section class="roadmap" aria-label="محاور التطوير التالية">
+            <div class="panel">
+              <h3>QR للعلب</h3>
+              <p>تثبيت توليد الملصق وربطه بصفحة قراءة تعرض محتويات العلبة بدون فتحها.</p>
+            </div>
+            <div class="panel">
+              <h3>فهرسة داخلية</h3>
+              <p>تكشيف العناوين والميتا داتا والكلمات المفتاحية مع وزن للحقول الأكثر أهمية.</p>
+            </div>
+            <div class="panel">
+              <h3>مكانز ومصطلحات</h3>
+              <p>توسيع البحث بالمترادفات والمصطلحات الإدارية الشائعة داخل المؤسسة.</p>
+            </div>
+            <div class="panel">
+              <h3>بحث متقدم</h3>
+              <p>تصفية حسب المصلحة، مدة الحفظ، نوع الوثيقة، الموقع، التاريخ، وحالة الإتاحة.</p>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="print-label" aria-hidden="true">
+      <h1 id="printTitle"></h1>
+      <div class="label-grid">
+        <img id="printQr" alt="" />
+        <div id="printMeta"></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      const boxes = [
+        {
+          code: "BX-2026-01",
+          title: "علبة ملفات الرواتب والمنح",
+          department: "المالية",
+          location: "الطابق 1 / رف A-03",
+          retention: "10 سنوات",
+          status: "متاحة",
+          keywords: ["رواتب", "منح", "مالية", "أجور", "كشف"],
+          files: [
+            { title: "كشوف الرواتب 2024", type: "PDF", count: 14 },
+            { title: "قرارات المنح والتعويضات", type: "DOCX", count: 8 },
+            { title: "مراسلات التسوية المالية", type: "PDF", count: 11 }
+          ]
+        },
+        {
+          code: "BX-2026-02",
+          title: "علبة ملفات الموظفين",
+          department: "الموارد البشرية",
+          location: "الطابق 1 / رف B-11",
+          retention: "دائمة",
+          status: "مقيدة",
+          keywords: ["موظفين", "مسار مهني", "توظيف", "ترقية", "إجازات"],
+          files: [
+            { title: "ملفات التوظيف", type: "PDF", count: 21 },
+            { title: "قرارات الترقية", type: "PDF", count: 13 },
+            { title: "طلبات العطل والإجازات", type: "Images", count: 18 }
+          ]
+        },
+        {
+          code: "BX-2026-03",
+          title: "علبة الصفقات والتجهيز",
+          department: "المشتريات",
+          location: "الطابق 2 / رف C-05",
+          retention: "15 سنة",
+          status: "متاحة",
+          keywords: ["صفقات", "تجهيز", "عروض", "مشتريات", "محاضر"],
+          files: [
+            { title: "دفاتر الشروط", type: "PDF", count: 7 },
+            { title: "محاضر فتح الأظرفة", type: "PDF", count: 5 },
+            { title: "طلبات العروض والمقارنات", type: "ZIP", count: 9 }
+          ]
+        },
+        {
+          code: "BX-2026-04",
+          title: "علبة محاضر الاجتماعات",
+          department: "الأمانة العامة",
+          location: "الطابق 0 / رف D-02",
+          retention: "دائمة",
+          status: "متاحة",
+          keywords: ["محاضر", "اجتماعات", "قرارات", "مجلس", "لجان"],
+          files: [
+            { title: "محاضر مجلس الإدارة", type: "PDF", count: 12 },
+            { title: "قرارات اللجان الداخلية", type: "DOCX", count: 10 },
+            { title: "قوائم الحضور", type: "PDF", count: 12 }
+          ]
+        }
+      ];
+
+      const state = {
+        selected: boxes[0],
+        query: "",
+        department: ""
+      };
+
+      const els = {
+        query: document.querySelector("#query"),
+        department: document.querySelector("#department"),
+        results: document.querySelector("#results"),
+        resultCount: document.querySelector("#resultCount"),
+        qrImage: document.querySelector("#qrImage"),
+        boxCode: document.querySelector("#boxCode"),
+        boxLocation: document.querySelector("#boxLocation"),
+        boxDepartment: document.querySelector("#boxDepartment"),
+        boxRetention: document.querySelector("#boxRetention"),
+        docList: document.querySelector("#docList"),
+        printBtn: document.querySelector("#printBtn"),
+        copyBtn: document.querySelector("#copyBtn"),
+        printTitle: document.querySelector("#printTitle"),
+        printQr: document.querySelector("#printQr"),
+        printMeta: document.querySelector("#printMeta"),
+        toast: document.querySelector("#toast"),
+        statBoxes: document.querySelector("#statBoxes"),
+        statFiles: document.querySelector("#statFiles"),
+        statDocs: document.querySelector("#statDocs")
+      };
+
+      const normalize = (value) =>
+        String(value || "")
+          .toLowerCase()
+          .replace(/[أإآ]/g, "ا")
+          .replace(/ة/g, "ه")
+          .replace(/ى/g, "ي")
+          .replace(/[^\u0600-\u06ff\w\s-]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+
+      const qrPayload = (box) => {
+        const files = box.files.map((file) => `${file.title} (${file.type}: ${file.count})`).join(" | ");
+        return [
+          "E-Archive Pro",
+          `العلبة: ${box.code}`,
+          `العنوان: ${box.title}`,
+          `المصلحة: ${box.department}`,
+          `الموقع: ${box.location}`,
+          `مدة الحفظ: ${box.retention}`,
+          `الحالة: ${box.status}`,
+          `المحتويات: ${files}`
+        ].join("\n");
+      };
+
+      const qrUrl = (box) =>
+        `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=14&data=${encodeURIComponent(qrPayload(box))}`;
+
+      const showToast = (message) => {
+        els.toast.textContent = message;
+        els.toast.classList.add("show");
+        window.clearTimeout(showToast.timer);
+        showToast.timer = window.setTimeout(() => els.toast.classList.remove("show"), 2200);
+      };
+
+      const matches = (box) => {
+        const query = normalize(state.query);
+        const haystack = normalize([
+          box.code,
+          box.title,
+          box.department,
+          box.location,
+          box.retention,
+          box.status,
+          ...box.keywords,
+          ...box.files.map((file) => `${file.title} ${file.type}`)
+        ].join(" "));
+        const byQuery = !query || haystack.includes(query);
+        const byDepartment = !state.department || box.department === state.department;
+        return byQuery && byDepartment;
+      };
+
+      const renderDepartments = () => {
+        const departments = [...new Set(boxes.map((box) => box.department))];
+        for (const department of departments) {
+          const option = document.createElement("option");
+          option.value = department;
+          option.textContent = department;
+          els.department.appendChild(option);
+        }
+      };
+
+      const renderResults = () => {
+        const filtered = boxes.filter(matches);
+        els.resultCount.textContent = `${filtered.length} نتيجة`;
+        els.results.innerHTML = "";
+
+        if (!filtered.includes(state.selected)) {
+          state.selected = filtered[0] || boxes[0];
+        }
+
+        for (const box of filtered) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = `sample-card${box.code === state.selected.code ? " active" : ""}`;
+          button.innerHTML = `
+            <strong>${box.code} - ${box.title}</strong>
+            <p>${box.department} | ${box.location} | ${box.retention}</p>
+            <div class="tags">${box.keywords.slice(0, 4).map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
+          `;
+          button.addEventListener("click", () => {
+            state.selected = box;
+            render();
+          });
+          els.results.appendChild(button);
+        }
+
+        if (!filtered.length) {
+          const empty = document.createElement("div");
+          empty.className = "sample-card";
+          empty.innerHTML = "<strong>لا توجد نتائج مطابقة</strong><p>جرّب كلمة أخرى أو ألغ تصفية المصلحة.</p>";
+          els.results.appendChild(empty);
+        }
+      };
+
+      const renderDetails = () => {
+        const box = state.selected;
+        const url = qrUrl(box);
+        els.qrImage.src = url;
+        els.boxCode.textContent = box.code;
+        els.boxLocation.textContent = box.location;
+        els.boxDepartment.textContent = box.department;
+        els.boxRetention.textContent = box.retention;
+        els.docList.innerHTML = box.files
+          .map((file) => `
+            <div class="doc-row">
+              <strong>${file.title}</strong>
+              <span>${file.type} | ${file.count} وثيقة</span>
+            </div>
+          `)
+          .join("");
+
+        els.printTitle.textContent = `${box.code} - ${box.title}`;
+        els.printQr.src = url;
+        els.printMeta.innerHTML = `
+          <p><strong>المصلحة:</strong> ${box.department}</p>
+          <p><strong>الموقع:</strong> ${box.location}</p>
+          <p><strong>مدة الحفظ:</strong> ${box.retention}</p>
+          <p><strong>الحالة:</strong> ${box.status}</p>
+          <p><strong>المحتويات:</strong> ${box.files.map((file) => file.title).join("، ")}</p>
+        `;
+      };
+
+      const renderStats = () => {
+        const files = boxes.reduce((sum, box) => sum + box.files.length, 0);
+        const docs = boxes.reduce((sum, box) => sum + box.files.reduce((fileSum, file) => fileSum + file.count, 0), 0);
+        els.statBoxes.textContent = boxes.length;
+        els.statFiles.textContent = files;
+        els.statDocs.textContent = docs;
+      };
+
+      const render = () => {
+        renderResults();
+        renderDetails();
+        renderStats();
+      };
+
+      els.query.addEventListener("input", (event) => {
+        state.query = event.target.value;
+        render();
+      });
+
+      els.department.addEventListener("change", (event) => {
+        state.department = event.target.value;
+        render();
+      });
+
+      els.printBtn.addEventListener("click", () => window.print());
+
+      els.copyBtn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(qrPayload(state.selected));
+          showToast("تم نسخ بيانات QR.");
+        } catch (error) {
+          showToast("تعذر النسخ التلقائي من المتصفح.");
+        }
+      });
+
+      renderDepartments();
+      render();
+    </script>
+  </body>
+</html>
